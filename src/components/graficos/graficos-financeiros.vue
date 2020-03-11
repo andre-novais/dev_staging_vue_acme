@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div id="container" class="grafico">  
-        </div>
+        <div id="receitas_custos" class="grafico"/>  
+        <div id="entrada_saida" class="grafico"/>
     </div>
 </template>
 
@@ -10,6 +10,7 @@
 var moment =require('moment')
 import {epoch_to_month} from '../funcoes/epoch_to_month'
 import {desenha} from '../funcoes/desenha_grafico_linha'
+import {Grafico} from '../funcoes/Grafico'
 
 export default {
     data(){
@@ -22,7 +23,44 @@ export default {
             .then(res =>this.list = epoch_to_month(res["body"]))
     },
     mounted () {
-        setTimeout(()=>{desenha_financeiro_por_categoria(this.list)},1000)
+        var receitas_custos = new Grafico('receitas e custos variaveis');
+        setTimeout(()=>{
+            receitas_custos.setSeries(
+                this.list.filter(json=>json['ds_tipificacao']=='receita'),
+                'occured_at',
+                'vl_valor',
+                'receitas',
+                'line'
+            );
+            receitas_custos.setSeries(
+                this.list.filter(json=>json['ds_tipificacao']=='custo'),
+                'occured_at',
+                'vl_valor',
+                'custos',
+                'line'
+            );
+            receitas_custos.chart.yAxis(0).labels().format('R${%value}')
+            
+            
+        
+            receitas_custos.desenha('receitas_custos');
+            var entrada_saida = new Grafico('Funding e Necessidade de Caixa');
+            entrada_saida.setSeries(
+                this.list.filter(json=>json['ds_tipificacao']=='entrada_com_contrapartida'),
+                'occured_at',   
+                'vl_valor',
+                'Funding',
+                'line'
+            );
+            entrada_saida.setSeries(
+                this.list.filter(json=>json['ds_tipificacao']=='despesa'),
+                'occured_at',
+                'vl_valor',
+                'Despendio Administrativo',
+                'line'
+            );
+            entrada_saida.desenha('receitas_custos');
+        },1000)
     },
     methods : {
         desenha:desenha

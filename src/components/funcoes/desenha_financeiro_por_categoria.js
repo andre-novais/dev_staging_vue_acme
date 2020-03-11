@@ -2,7 +2,9 @@
 var anychart = require('anychart')
 
 export function desenha (data){  
+
     var result = [];
+    
     data.map(
         json => result.push(
             {

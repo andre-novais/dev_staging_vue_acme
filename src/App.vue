@@ -1,7 +1,12 @@
 <template>
   <div id="app">
     <div>
-      <graficosfinanceiros/>
+      <div id='graph_container'>
+        <div>
+          <button @click="get_component()">Financeiro</button>
+        </div>
+        <div id='grafico_resultado' :is='comp'></div>
+      </div>
     </div>
   </div>
 </template>
@@ -14,6 +19,16 @@ export default {
   name: 'App',
   components: {
     graficosfinanceiros
+  },
+  data(){
+    return {
+      comp : null
+    }
+  },
+  methods : {
+    get_component(){
+      this.comp = graficosfinanceiros
+    }
   }
 }
 </script>
@@ -26,5 +41,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#graph_container{
+  text-align: center;
+  display: inline-block;  
 }
 </style>

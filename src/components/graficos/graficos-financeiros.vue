@@ -1,7 +1,13 @@
 <template>
-    <div>
-        <div id="receitas_custos" class="grafico"/>  
-        <div id="entrada_saida" class="grafico"/>
+    <div class="container">
+        <div class="col-sm-6">
+            <div id="receitas_custos" class="grafico col-sm-12 quadro rounded"/>  
+        </div>
+        <div class="col-sm-6">
+            <div id="entrada_saida" class="grafico col-sm-12 quadro  rounded"/>
+        </div>
+        
+       
     </div>
 </template>
 
@@ -75,9 +81,13 @@ export default {
 <style scoped>
 .grafico {
     width : 60vw;
-    height : 50vh;
     max-width: 500px;
-    max-height: 400px;
+    min-width: 300px;
+}
+
+.quadro{
+    background-color: coral;
+    padding: 0.5vw;    
 }
 
 </style>

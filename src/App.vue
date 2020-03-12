@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <div>
-      <div id='graph_container'>
-        <div>
-          <button @click="get_component()">Financeiro</button>
+      <div id='graph_container' class="container">
+        <div class="container">
+          <button class="btn btn-primary" @click="get_component()">Financeiro</button>
         </div>
-        <div id='grafico_resultado' :is='comp'></div>
+          <div class="row" id='grafico_resultado' :is='comp'></div>
       </div>
     </div>
   </div>
@@ -34,6 +34,11 @@ export default {
 </script>
 
 <style>
+
+body{
+  background-color: blueviolet;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -45,5 +50,8 @@ export default {
 #graph_container{
   text-align: center;
   display: inline-block;  
+}
+#grafico_resultado{
+  margin-top: 0.5vw;
 }
 </style>

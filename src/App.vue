@@ -1,11 +1,17 @@
 <template>
   <div id="app">
     <div>
-      <div id='graph_container' class="container">
-        <div class="container">
-          <button class="btn btn-primary" @click="get_component()">Financeiro</button>
+      <div id='graph_container container'>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-sm-2" v-for="component in list_comp" :key="component.name">
+            <button class="btn btn-primary" @click="get_component(component.comp)">{{ component.name }}</button>
+          </div>
+          
         </div>
-          <div class="row" id='grafico_resultado' :is='comp'></div>
+        <div class="container">
+           <div class="row" id='grafico_resultado' :is='comp'></div>
+        </div>
+         
       </div>
     </div>
   </div>
@@ -14,20 +20,27 @@
 
 <script>
 import graficosfinanceiros from './components/graficos/graficos-financeiros.vue'
+import graficoscrm from './components/graficos/graficos-crm.vue'
 
 export default {
   name: 'App',
   components: {
-    graficosfinanceiros
+    graficosfinanceiros,
+    graficoscrm
   },
   data(){
     return {
-      comp : null
+      comp : null,
+      graficosfinanceiros,
+      graficoscrm,
+      list_comp : [
+        {'name':'Financeiro','comp': graficosfinanceiros},
+        {'name':'crm','comp': graficoscrm}]
     }
   },
   methods : {
-    get_component(){
-      this.comp = graficosfinanceiros
+    get_component(comp){
+      this.comp = comp
     }
   }
 }

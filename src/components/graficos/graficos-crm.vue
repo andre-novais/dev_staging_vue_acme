@@ -1,25 +1,27 @@
 <template>
     <div class="container">
-        <div class="col-sm-6">
+<!--         <div class="col-sm-6">
             <div id="receitas_custos" class="grafico col-sm-12 quadro rounded"/>  
         </div>
         <div class="col-sm-6">
             <div id="entrada_saida" class="grafico col-sm-12 quadro  rounded"/>
-        </div>
-        
-       
+        </div> -->
+        <h1>{{outra_list }}</h1>
     </div>
 </template>
 
 <script>
+
 var moment =require('moment')
 import {epoch_to_month} from '../funcoes/epoch_to_month'
 import {Grafico} from '../funcoes/Grafico'
+import {cont_pot_categoria} from '../funcoes/cont_pot_categoria'
 
 export default {
     data(){
         return {
-            list : []
+            list : [],
+            outra_list:[]
         }
     },
     created(){
@@ -27,9 +29,10 @@ export default {
     },
     mounted () {
         
-        this.$http.get("https://projeto-acme.herokuapp.com/financeiro", {headers: {'Access-Control-Allow-Origin': "*"}})
+        this.$http.get("https://projeto-acme.herokuapp.com/crm", {headers: {'Access-Control-Allow-Origin': "*"}})
             .then(res =>{
                 this.list = epoch_to_month(res["body"])
+                //cont_pot_categoria(this.list)
                 
                 var receitas_custos = new Grafico('receitas e custos variaveis');
 
@@ -69,7 +72,7 @@ export default {
                 entrada_saida.chart.yAxis(0).labels().format('R${%value}')
                 
             })
-
+        this.outra_list = cont_pot_categoria(this.list)
     }
 }
 </script>

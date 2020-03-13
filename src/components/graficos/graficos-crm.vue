@@ -1,12 +1,11 @@
 <template>
     <div class="container">
-<!--         <div class="col-sm-6">
-            <div id="receitas_custos" class="grafico col-sm-12 quadro rounded"/>  
+        <div class="col-sm-6 justify-content-center align-items-center">
+            <div id="contagem_clientes" class="grafico col-sm-12 quadro rounded"/>  
         </div>
-        <div class="col-sm-6">
+        <!-- <div class="col-sm-6">
             <div id="entrada_saida" class="grafico col-sm-12 quadro  rounded"/>
         </div> -->
-        <h1>{{outra_list }}</h1>
     </div>
 </template>
 
@@ -32,9 +31,18 @@ export default {
         this.$http.get("https://projeto-acme.herokuapp.com/crm", {headers: {'Access-Control-Allow-Origin': "*"}})
             .then(res =>{
                 this.list = epoch_to_month(res["body"])
+                
+                var contagem_clientes = new Grafico('Total de Clientes');
+
+                contagem_clientes.setSeriesByFunc(this.list,cont_pot_categoria,'total de clientes','line')
+
+                contagem_clientes.desenha('contagem_clientes');
+                })
+                
+
                 //cont_pot_categoria(this.list)
                 
-                var receitas_custos = new Grafico('receitas e custos variaveis');
+                /* var receitas_custos = new Grafico('receitas e custos variaveis');
 
                 receitas_custos.setSeries(
                     this.list.filter(json=>json['ds_tipificacao']=='receita'),
@@ -71,7 +79,7 @@ export default {
                 entrada_saida.desenha('entrada_saida');
                 entrada_saida.chart.yAxis(0).labels().format('R${%value}')
                 
-            })
+            }) */
         this.outra_list = cont_pot_categoria(this.list)
     }
 }

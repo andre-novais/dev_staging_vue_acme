@@ -33,7 +33,24 @@ export class Grafico {
             this.chart.xAxis(0).labels().width(40);
         }
     }
-    
+    setSeriesByFunc(data,func, legenda, tipo){
+        var result = func(data);
+        if (tipo == 'line'){
+            var series = this.chart.line(result);
+            series.name(legenda);
+        } else if (tipo == 'bar'){
+            var series = this.chart.column(result);
+            series.name(legenda);
+        }
+        if(data[0]['occured_at']){
+            this.chart.xAxis(0).labels().format(function(){
+            var value = this.value.toString();
+            value = moment(value.slice(-2),'MM').format('MMMM');
+            return value;
+            });
+            this.chart.xAxis(0).labels().width(40);
+        }
+    }    
     desenha(container_id){
         this.chart.container(container_id);
         this.chart.draw();

@@ -1,10 +1,10 @@
 <template>
-    <div class="container">
-        <div class="col-sm-6">
-            <div id="receitas_custos" class="grafico col-sm-12 quadro rounded"/>  
+    <div class="row justify-content-center align-items-center">
+        <div class="col-sm-12 col-md-5 grafico">
+            <div id="receitas_custos" class="grafico col-md-12 quadro rounded"/>  
         </div>
-        <div class="col-sm-6">
-            <div id="entrada_saida" class="grafico col-sm-12 quadro  rounded"/>
+        <div class="col-sm-12 col-md-5 col-md-offset-2 grafico">
+            <div id="entrada_saida" class="grafico quadro col-md-12 rounded"/>
         </div>
         
        
@@ -69,7 +69,6 @@ export default {
                 entrada_saida.chart.yAxis(0).labels().format('R${%value}')
                 
             })
-
     }
 }
 </script>
@@ -77,13 +76,14 @@ export default {
 <style scoped>
 .grafico {
     width : 60vw;
-    max-width: 500px;
-    min-width: 300px;
+    min-width: 100px; 
+    padding-right: 5px;
 }
 
 .quadro{
     background-color: coral;
-    padding: 0.5vw;    
+    padding: 0.5vw; 
+    margin-bottom: 5px;   
 }
 
 </style>

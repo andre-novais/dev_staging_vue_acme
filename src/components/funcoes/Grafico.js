@@ -23,7 +23,14 @@ export class Grafico {
         } else if (tipo == 'bar'){
             var series = this.chart.column(result);
             series.name(legenda);
+        } else if (tipo == 'area'){
+            var series = this.chart.area(result);
+            series.name(legenda);
+        } else if (tipo == 'bubble'){
+            var series = this.chart.bubble(result);
+            series.name(legenda);
         }
+        
         if(x=='occured_at'){
             this.chart.xAxis(0).labels().format(function(){
             var value = this.value;
@@ -33,16 +40,22 @@ export class Grafico {
             this.chart.xAxis(0).labels().width(40);
         }
     }
-    setSeriesByFunc(data,func, legenda, tipo){
-        var result = func(data);
+    setSeriesByFunc(data,func, legenda, tipo,x, ...params){
+        var result = func(data,params);
         if (tipo == 'line'){
             var series = this.chart.line(result);
             series.name(legenda);
         } else if (tipo == 'bar'){
             var series = this.chart.column(result);
             series.name(legenda);
+        } else if (tipo == 'area'){
+            var series = this.chart.area(result);
+            series.name(legenda);
+        } else if (tipo == 'bubble'){
+            var series = this.chart.bubble(result);
+            series.name(legenda);
         }
-        if(data[0]['occured_at']){
+        if(x=='occured_at'){
             this.chart.xAxis(0).labels().format(function(){
             var value = this.value.toString();
             value = moment(value.slice(-2),'MM').format('MMMM');
@@ -53,6 +66,7 @@ export class Grafico {
     }    
     desenha(container_id){
         this.chart.container(container_id);
+        this.chart.legend(true);
         this.chart.draw();
     }
 }
